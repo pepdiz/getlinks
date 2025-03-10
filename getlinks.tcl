@@ -8,23 +8,7 @@ package require tls
 ####
 # extract to stdout all links (A tags) in html to stdout
 
-#set NAME $argv0
-## proc syntax {} {
- #    global NAME
- #    puts "$NAME \[options] html"
- #    puts ""
- #    puts "html is an uri if begins with http\[s]:// or a file path if not"
- #    puts ""
- #    puts "options accepted:"
- #    puts " -a	show links with absolute full path"	
- #    puts " -r 	regex to filter links to show"
- # }
- ##
-
-
 # Description of the options
-#    {f.arg   "" "input html file"}
-#    {h.arg   "" "input html url"}
 set OPTIONS {
     {a "show absolute path for links in url"}
     {r.arg ".*" "regex to filter links to show"}
@@ -45,7 +29,6 @@ proc getbase url {
 }
 
 proc read-url url {
-
         if {[startsWith $url https]} {
 		http::register https 443 tls::socket
 	}
@@ -118,7 +101,6 @@ try {
 
 # should be only one argument resting
 if {[llength $argv] != 1 } {
-	#syntax
 	exit
 }
 
@@ -136,13 +118,5 @@ if {[isUrl $argv]} {
 }
 
 set FILTER $opts(r)
-
-
-#now H have the html content
-
-# Now, we can just use them; $::argv is everything not processed
-#set filename $opts(f)
-# ...
-
 
 htmlparse::parse -cmd handleTag $H
